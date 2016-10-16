@@ -1,0 +1,38 @@
+{
+  "name": "buildtool",
+  "version": "1.0.0",
+  "description": "npm as a build tool",
+  "dependencies": {
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2"
+  },
+  "devDependencies": {
+    "babel-core": "^6.17.0",
+    "babel-loader": "^6.2.5",
+    "babel-preset-es2015": "^6.16.0",
+    "babel-preset-react": "^6.16.0",
+    "clean-css": "^3.4.20",
+    "http-server": "^0.9.0",
+    "jshint": "^2.9.3",
+    "mocha": "^3.1.2",
+    "node-sass": "^3.10.1",
+    "nodemon": "^1.11.0",
+    "uglify-js": "^2.7.3",
+    "watch": "^1.0.1",
+    "webpack": "^1.13.2"
+  },
+  "scripts": {
+    "watch": "watch \"npm run minify:js && npm run minify:css\" assets/scripts/ assets/css/",
+    "info": "echo 'npm as a build tool'",
+    "lint": "echo '=> linting' && jshint assets/scripts/",
+    "test": "echo '=> testing' && mocha test/",
+    "minify:js": "echo '=> minify:js' && uglifyjs assets/scripts/main.js -o dist/public/js/main.min.js",
+    "pretest": "npm run lint -s",
+    "server": "http-server dist/public/",
+    "build-css": "node-sass --include-path scss assets/scss/main.scss -o dist/public/css/ && npm run minify:css",
+    "minify:css": "echo '=> minify:css' && cleancss dist/public/css/main.css -o dist/public/css/main.min.css && rm dist/public/css/main.css",
+    "build": "echo '=> building' && npm run test -s && npm run minify:js -s && npm run build-css && npm run server"
+  },
+  "author": "SitePoint",
+  "license": "ISC"
+}
